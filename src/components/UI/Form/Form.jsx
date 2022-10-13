@@ -9,7 +9,7 @@ const Form = ({ title, handleClick }) => {
         <div className={styles.form}>
             <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} placeholder="Email..." />
             <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} placeholder="Password..." />
-            <button onClick={handleClick}>
+            <button onClick={() => handleClick(email, password)} >
                 {title}
             </button>
         </div>

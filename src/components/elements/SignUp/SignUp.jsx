@@ -1,18 +1,18 @@
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import Form from 'components/UI/Form/Form';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import React from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import { setUser } from 'store/slices/userSlice';
 
-const Login = () => {
+
+const SignUp = () => {
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
-
-    const handleLogin = (email, password) => {
+    const handleSignUp = (email, password) => {
         const auth = getAuth();
-        signInWithEmailAndPassword(auth, email, password)
+        createUserWithEmailAndPassword(auth, email, password)
             .then(({ user }) => {
                 dispatch(setUser({
                     email: user.email,
@@ -21,13 +21,14 @@ const Login = () => {
                 }));
                 navigate('/')
             })
-            .catch(() => alert('Invalid user'))
+            .catch(console.error)
     }
+
     return (
         <div>
-            <Form title="Sign In" handleClick={handleLogin} />
+            <Form title="Sign up" handleClick={handleSignUp} />
         </div>
     )
 }
 
-export default Login
+export default SignUp
